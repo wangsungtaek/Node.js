@@ -99,12 +99,43 @@ Lorem ipskfsdf~~~~~`
 ## package Manager
 
 > NPM
+
 > nodejs 설치 시 함께 설치됨
 
 > PM2의 역할
+
 > 어한 이유에서 우리의 서버가 꺼지면 이를 감시하고 있다가 꺼지면 다시 켜주는 역할을 한다.
-> 코드 수정 시 껐다 다시 시작해야 했는데 PM2가 수정이 되는지 관찰함 수정되면 자동으로 껐다 다시 킴(불편함을 제거해 줌)
+
+> 코드 수정 시 껐다 다시 시작해야 했는데 PM2가 수정이 되는지 관찰함 수정되면 자동로 껐다 다시 킴(불편함을 제거해 줌)
+
 > NPM을 통해 PM2를 설치해보자
+
 > pm2 monit : 현재 실행하고 있는 프로그램 리스트 확인 가능
+
 > pm2 start -main.js --watch : pm2를 실행하고 코드가 수정되면 자동으로 서버를 껐다 킴
+
 > pm2 stop  main : 서버 정지
+
+## GET, POST
+
+> 정보를 요청할 때 GET
+
+> 등록, 수정, 삭제 시 POST 사용 (GET으로 할 때, 위험하다. 해당 URL을 그대로 카피해서 상대방한테 전달할 수 있기에..)
+
+## request
+
+~~~ javascript
+var body;
+
+// 웹 브라우저가 데이터를 전송할 때 데이터가 엄청 많을때, 서버에서는 이 데이터를
+// 한번에 처리하기에는 여러가지 문제가 생길 수 있다.
+// 때문에 nodejs에서는 조각조각내어 data를 전송해준다.
+request.on('data', function(data){
+  body += data;
+});
+// 더이상 받을 데이터가 없을 때, 실행
+request.on('end', function(data){
+    var post = qs.parse(body);
+    var id = post.id;
+});
+~~~
